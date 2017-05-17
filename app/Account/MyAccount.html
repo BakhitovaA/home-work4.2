@@ -1,0 +1,43 @@
+<style>
+    .ng-dirty.ng-invalid {
+        border-color: #FA787E;
+    }
+    .ng-dirty.ng-valid {
+        border-color: #78FA89;
+    }
+</style>
+
+<!--Создать форму с полями имя (Обязательное), email (обязательное,типа email) и телефон (цифры и знак плюс).-->
+
+<form name="myAccount" novalidate>
+   
+    <div class="form-group">
+        <label>Имя</label>
+        <input class="form-control" data-ng-model="account.name" type="text" placeholder="Имя" required name="accountName">
+    </div>
+
+    <div ng-messages="myAccount.accountName.$error" ng-if="myAccount.accountName.$dirty">
+        <div ng-message="required" class="alert alert-danger" role="alert">Поле "Имя" обязательно для заполнения</div>
+    </div>
+
+    <div class="form-group">
+        <label>E-mail</label>
+        <input class="form-control" data-ng-model="account.email" type="text" placeholder="Email" data-ng-pattern="/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/" required name="accountEmail">
+    </div>
+    
+    <div ng-messages="myAccount.accountEmail.$error" ng-if="myAccount.accountEmail.$dirty">
+        <div ng-message="pattern" class="alert alert-danger">Не верный e-mail</div>
+        <div ng-message="required" class="alert alert-danger" role="alert">Поле "E-mail" обязательно для заполнения</div>
+    </div>
+    
+    <div class="form-group">
+        <label>Телефон</label>
+        <input class="form-control" data-ng-model="account.phone" type="text" placeholder="Телефон" data-ng-pattern="/^^((\+7|8)+([0-9]){10})$/" required name="accountPhone">
+    </div>
+    
+    <div ng-messages="myAccount.accountPhone.$error" ng-if="myAccount.accountPhone.$dirty">
+       <div ng-message="pattern" class="alert alert-danger">Не верный формат номера (телефон должен начинаться с 8 или +7, а затем содержать 10 цифр)</div>
+        <div ng-message="required" class="alert alert-danger" role="alert">Поле "Телефон" обязательно для заполнения</div>
+    </div>
+
+</form>
