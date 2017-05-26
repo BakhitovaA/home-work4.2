@@ -9,35 +9,43 @@
 
 <!--Создать форму с полями имя (Обязательное), email (обязательное,типа email) и телефон (цифры и знак плюс).-->
 
-<form name="myAccount" novalidate>
+<form name="vm.myAccountForm" novalidate>
    
     <div class="form-group">
         <label>Имя</label>
-        <input class="form-control" data-ng-model="account.name" type="text" placeholder="Имя" required name="accountName">
+        <input class="form-control" data-ng-model="vm.account.name" type="text" placeholder="Имя" required name="accountName">
     </div>
 
-    <div ng-messages="myAccount.accountName.$error" ng-if="myAccount.accountName.$dirty">
-        <div ng-message="required" class="alert alert-danger" role="alert">Поле "Имя" обязательно для заполнения</div>
+    <div role="alert" ng-messages="vm.myAccountForm.accountName.$error" ng-if="vm.myAccountForm.accountName.$dirty">
+        <div ng-message="required" class="alert alert-danger">Поле "Имя" обязательно для заполнения</div>
     </div>
 
     <div class="form-group">
         <label>Электронная почта</label>
-        <input class="form-control" data-ng-model="account.email" type="text" placeholder="Email" data-ng-pattern="/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/" required name="accountEmail">
+        <input class="form-control" data-ng-model="vm.account.email" type="text" placeholder="Email" data-ng-pattern="/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/" required name="accountEmail">
     </div>
     
-    <div ng-messages="myAccount.accountEmail.$error" ng-if="myAccount.accountEmail.$dirty">
+    <div ng-messages="vm.myAccountForm.accountEmail.$error" ng-if="vm.myAccountForm.accountEmail.$dirty">
         <div ng-message="pattern" class="alert alert-danger">Не верный e-mail</div>
         <div ng-message="required" class="alert alert-danger" role="alert">Поле "E-mail" обязательно для заполнения</div>
     </div>
     
     <div class="form-group">
         <label>Телефон</label>
-        <input class="form-control" data-ng-model="account.phone" type="text" placeholder="Телефон" data-ng-pattern="/^^((\+7|8)+([0-9]){10})$/" required name="accountPhone">
+        <input class="form-control" data-ng-model="vm.account.phone" type="text" placeholder="Телефон" data-ng-pattern="/^^((\+7|8)+([0-9]){10})$/" required name="accountPhone">
     </div>
     
-    <div ng-messages="myAccount.accountPhone.$error" ng-if="myAccount.accountPhone.$dirty">
+    <div ng-messages="vm.myAccountForm.accountPhone.$error" ng-if="vm.myAccountForm.accountPhone.$dirty">
        <div ng-message="pattern" class="alert alert-danger">Не верный формат номера (телефон должен начинаться с 8 или +7, а затем содержать 10 цифр)</div>
         <div ng-message="required" class="alert alert-danger" role="alert">Поле "Телефон" обязательно для заполнения</div>
     </div>
+    
+    <button type="submit" class="btn btn-default" data-ng-click="vm.saveAccountData(vm.account)" data-ng-disabled="vm.myAccountForm.$invalid">Сохранить</button>
+    
+    <pre>myAccountForm.accountName.$pristine = {{ vm.myAccountForm.accountName.$pristine | json }}</pre>
+    <pre>myAccountForm.accountEmail.$pristine = {{ vm.myAccountForm.accountEmail.$pristine | json }}</pre>
+    <pre>myAccountForm.accountPhone.$pristine = {{ vm.myAccountForm.accountPhone.$pristine | json }}</pre>
+    
+    <pre>vm.accountData = {{ vm.accountData | json }}</pre>
 
 </form>

@@ -44,6 +44,6 @@ config(function($stateProvider) {
             name: 'account',
             url: '/myaccount',
             templateUrl: 'Account/MyAccount.html',
-            controller: function() {}
+            controller: 'MyAccountCtrl as vm'
         });
 });
